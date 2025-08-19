@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://0amivtowicwr"]
+
+[ext_resource type="Script" uid="uid://ugo5awaskwyj" path="res://scenes/screens/rank_items/rank_items.gd" id="1_bnefp"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_x5vjr"]
+[ext_resource type="PackedScene" uid="uid://b0v2r0lix75ky" path="res://scenes/screens/rank_items/choice.tscn" id="3_2rv4d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vdhxh"]
+font = ExtResource("2_x5vjr")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_egofa"]
+font = ExtResource("2_x5vjr")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[node name="RankItems" type="Control" node_paths=PackedStringArray("choice_a", "choice_b")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bnefp")
+choice_a = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ChoiceA")
+choice_b = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ChoiceB")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Prompt" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Which do you prefer?"
+label_settings = SubResource("LabelSettings_vdhxh")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="ChoiceA" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_2rv4d")]
+layout_mode = 2
+
+[node name="Or" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Or"
+label_settings = SubResource("LabelSettings_egofa")
+horizontal_alignment = 1
+
+[node name="ChoiceB" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_2rv4d")]
+layout_mode = 2
+
+[connection signal="chosen" from="MarginContainer/VBoxContainer/HBoxContainer/ChoiceA" to="." method="_on_choice_chosen"]
+[connection signal="chosen" from="MarginContainer/VBoxContainer/HBoxContainer/ChoiceB" to="." method="_on_choice_chosen"]

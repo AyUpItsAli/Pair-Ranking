@@ -1,0 +1,144 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3betdot8mr0d"]
+
+[ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="1_1b65a"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_6jybo"]
+[ext_resource type="Script" uid="uid://dp01ukpj5ndjj" path="res://scenes/screens/add_music/add_music.gd" id="1_8vtxj"]
+[ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="2_6jybo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6jybo"]
+font = ExtResource("1_1b65a")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0rted"]
+font = ExtResource("2_6jybo")
+font_size = 24
+
+[node name="AddMusic" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8vtxj")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LeftOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="BackBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions"]
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_6jybo")
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="TitleLbl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add Music"
+label_settings = SubResource("LabelSettings_6jybo")
+horizontal_alignment = 1
+
+[node name="RightOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 10
+
+[node name="Options" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6jybo")
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Search Music"
+
+[node name="TypeBtn" type="OptionButton" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+selected = 0
+item_count = 3
+popup/item_0/text = "Track"
+popup/item_0/id = 0
+popup/item_1/text = "Album"
+popup/item_1/id = 1
+popup/item_2/text = "Artist"
+popup/item_2/id = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(700, 400)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MusicEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NoMusicLbl" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Couldn't find any music :("
+label_settings = SubResource("LabelSettings_0rted")
+horizontal_alignment = 1
+autowrap_mode = 3

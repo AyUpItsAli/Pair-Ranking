@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0v2r0lix75ky"]
+
+[ext_resource type="Script" uid="uid://cqm1slkcooqug" path="res://scenes/screens/rank_items/choice.gd" id="1_jxhwa"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_pdtke"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v1i7n"]
+font = ExtResource("2_pdtke")
+font_size = 20
+
+[node name="Choice" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl")]
+offset_right = 270.0
+offset_bottom = 302.0
+size_flags_vertical = 6
+script = ExtResource("1_jxhwa")
+icon_rect = NodePath("MarginContainer/VBoxContainer/IconRect")
+name_lbl = NodePath("MarginContainer/VBoxContainer/NameLbl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLbl" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Item Name"
+label_settings = SubResource("LabelSettings_v1i7n")
+horizontal_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuvnjfxpjrfbo"]
+
+[ext_resource type="Texture2D" uid="uid://by18t07g6gjdh" path="res://assets/images/empty_icon.png" id="1_6upj3"]
+[ext_resource type="Script" uid="uid://cvej2sqq11iy6" path="res://scenes/screens/main/ranking_entry.gd" id="2_8dhgq"]
+
+[node name="RankingEntry" type="Button"]
+custom_minimum_size = Vector2(0, 80)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_constants/h_separation = 10
+theme_override_font_sizes/font_size = 24
+text = "Name"
+icon = ExtResource("1_6upj3")
+alignment = 0
+text_overrun_behavior = 3
+expand_icon = true
+script = ExtResource("2_8dhgq")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://uyhifjhgey5"]
+
+[ext_resource type="Script" uid="uid://072ng5xeoxjk" path="res://scenes/screens/view_ranking/item_entry.gd" id="1_55005"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_banvn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f7gkb"]
+font = ExtResource("2_banvn")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqfnm"]
+font = ExtResource("2_banvn")
+font_size = 24
+
+[node name="ItemEntry" type="PanelContainer" node_paths=PackedStringArray("rank_lbl", "icon_rect", "name_lbl")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 70.0
+grow_horizontal = 2
+script = ExtResource("1_55005")
+rank_lbl = NodePath("MarginContainer/HBoxContainer/RankLbl")
+icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
+name_lbl = NodePath("MarginContainer/HBoxContainer/NameLbl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RankLbl" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "#1"
+label_settings = SubResource("LabelSettings_f7gkb")
+
+[node name="IconRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLbl" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_lqfnm")

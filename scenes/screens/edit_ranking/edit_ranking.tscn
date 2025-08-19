@@ -1,0 +1,246 @@
+[gd_scene load_steps=13 format=3 uid="uid://bv3hqf26ln738"]
+
+[ext_resource type="PackedScene" uid="uid://dnhyb6von10hj" path="res://scenes/widgets/icon_selector/icon_selector.tscn" id="1_4dxoy"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_85343"]
+[ext_resource type="Script" uid="uid://cqg7im5s34spj" path="res://scenes/screens/edit_ranking/edit_ranking.gd" id="1_vm0hf"]
+[ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="2_x7ci8"]
+[ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="3_r61qt"]
+[ext_resource type="PackedScene" uid="uid://bt4i2rwqhxvgb" path="res://scenes/screens/edit_ranking/editable_item_entry.tscn" id="4_vegys"]
+[ext_resource type="PackedScene" uid="uid://ccl870mn4qkiy" path="res://scenes/screens/edit_ranking/icon_entry.tscn" id="5_vx0vb"]
+[ext_resource type="Texture2D" uid="uid://beiq2d8ppvb31" path="res://assets/images/spotify_logo_green.png" id="5_xlsnh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vx0vb"]
+font = ExtResource("3_r61qt")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lqlox"]
+font = ExtResource("1_85343")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_vegys"]
+font = ExtResource("1_85343")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_85343"]
+font = ExtResource("2_x7ci8")
+font_size = 18
+
+[node name="EditRanking" type="Control" node_paths=PackedStringArray("icon_selector", "icon_entries", "name_edit", "item_entries", "no_items_lbl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vm0hf")
+icon_selector = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/IconSelector")
+icon_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer/IconEntries")
+name_edit = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/NameField/NameEdit")
+item_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/ScrollContainer/ItemEntries")
+no_items_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/NoItemsLbl")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LeftOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="SaveBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions"]
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_85343")
+theme_override_font_sizes/font_size = 20
+text = "Save"
+
+[node name="TitleLbl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Edit Ranking"
+label_settings = SubResource("LabelSettings_vx0vb")
+horizontal_alignment = 1
+
+[node name="RightOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="DeleteBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/RightOptions"]
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_85343")
+theme_override_font_sizes/font_size = 20
+text = "Delete"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Left" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="IconField" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconSelector" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField" instance=ExtResource("1_4dxoy")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="IconEntries" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="IconEntry" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer/IconEntries" instance=ExtResource("5_vx0vb")]
+layout_mode = 2
+
+[node name="IconEntry2" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer/IconEntries" instance=ExtResource("5_vx0vb")]
+layout_mode = 2
+
+[node name="IconEntry3" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer/IconEntries" instance=ExtResource("5_vx0vb")]
+layout_mode = 2
+
+[node name="IconEntry4" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/PanelContainer/MarginContainer/ScrollContainer/IconEntries" instance=ExtResource("5_vx0vb")]
+layout_mode = 2
+
+[node name="NameField" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="NameLbl" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/NameField"]
+layout_mode = 2
+text = "Name:"
+label_settings = SubResource("LabelSettings_lqlox")
+
+[node name="NameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/NameField"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_x7ci8")
+theme_override_font_sizes/font_size = 20
+
+[node name="Options" type="GridContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="AddMusicBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/Options"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/icon_max_width = 25
+theme_override_fonts/font = ExtResource("1_85343")
+theme_override_font_sizes/font_size = 18
+text = "Add Music"
+icon = ExtResource("5_xlsnh")
+icon_alignment = 2
+
+[node name="AddCustomBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/Options"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_85343")
+theme_override_font_sizes/font_size = 18
+text = "Add Custom"
+
+[node name="Items" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ItemsLbl" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items"]
+layout_mode = 2
+text = "Items:"
+label_settings = SubResource("LabelSettings_vegys")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="EditableItemEntry" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/ScrollContainer/ItemEntries" instance=ExtResource("4_vegys")]
+layout_mode = 2
+
+[node name="NoItemsLbl" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "No items have been added yet"
+label_settings = SubResource("LabelSettings_85343")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/RightOptions/DeleteBtn" to="." method="_on_delete_btn_pressed"]
+[connection signal="icon_selected" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/IconField/IconSelector" to="." method="_on_icon_selector_icon_selected"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/NameField/NameEdit" to="." method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/Options/AddMusicBtn" to="." method="_on_add_music_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Left/Options/AddCustomBtn" to="." method="_on_add_custom_btn_pressed"]

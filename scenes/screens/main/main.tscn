@@ -1,0 +1,140 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqr8c27bfa1fq"]
+
+[ext_resource type="Script" uid="uid://c2drg0245fts8" path="res://scenes/screens/main/main.gd" id="1_7j7ft"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_7j7ft"]
+[ext_resource type="Texture2D" uid="uid://beiq2d8ppvb31" path="res://assets/images/spotify_logo_green.png" id="2_e4nc2"]
+[ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="2_f7gkb"]
+[ext_resource type="PackedScene" uid="uid://cuvnjfxpjrfbo" path="res://scenes/screens/main/ranking_entry.tscn" id="5_lqfnm"]
+[ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="7_m3w3q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7j7ft"]
+font = ExtResource("2_f7gkb")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0h5i5"]
+font = ExtResource("7_m3w3q")
+font_size = 24
+
+[node name="Main" type="Control" node_paths=PackedStringArray("new_ranking_btn", "new_ranking_menu", "ranking_entries", "no_rankings_lbl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7j7ft")
+new_ranking_btn = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingBtn")
+new_ranking_menu = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu")
+ranking_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/RankingEntries")
+no_rankings_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/NoRankingsLbl")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TitleLbl" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "My Rankings"
+label_settings = SubResource("LabelSettings_7j7ft")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NewRankingBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_7j7ft")
+theme_override_font_sizes/font_size = 24
+text = "New Ranking"
+
+[node name="NewRankingMenu" type="PanelContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="AlbumRankingBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/icon_max_width = 25
+theme_override_fonts/font = ExtResource("2_7j7ft")
+theme_override_font_sizes/font_size = 24
+text = "Create from Album"
+icon = ExtResource("2_e4nc2")
+icon_alignment = 2
+
+[node name="EmptyRankingBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_7j7ft")
+theme_override_font_sizes/font_size = 24
+text = "Start from Scratch"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RankingEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RankingEntry" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/RankingEntries" instance=ExtResource("5_lqfnm")]
+layout_mode = 2
+
+[node name="NoRankingsLbl" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "You have no rankings yet"
+label_settings = SubResource("LabelSettings_0h5i5")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingBtn" to="." method="_on_new_ranking_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer/AlbumRankingBtn" to="." method="_on_album_ranking_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer/EmptyRankingBtn" to="." method="_on_empty_ranking_btn_pressed"]

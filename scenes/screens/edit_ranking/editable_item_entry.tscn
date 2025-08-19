@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt4i2rwqhxvgb"]
+
+[ext_resource type="Script" uid="uid://o5t6mqrfhwef" path="res://scenes/screens/edit_ranking/editable_item_entry.gd" id="1_aimwj"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_iaa72"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aimwj"]
+font = ExtResource("1_iaa72")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_o3fm4"]
+font = ExtResource("1_iaa72")
+font_color = Color(0.639063, 0.639063, 0.639063, 1)
+
+[node name="EditableItemEntry" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "type_lbl")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -832.0
+offset_bottom = 70.0
+grow_horizontal = 2
+script = ExtResource("1_aimwj")
+icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
+name_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/NameLbl")
+type_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TypeLbl")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NameLbl" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Name"
+label_settings = SubResource("LabelSettings_aimwj")
+text_overrun_behavior = 3
+
+[node name="TypeLbl" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Type"
+label_settings = SubResource("LabelSettings_o3fm4")
+
+[node name="RemoveBtn" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_iaa72")
+theme_override_font_sizes/font_size = 18
+text = "X"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RemoveBtn" to="." method="_on_remove_btn_pressed"]
