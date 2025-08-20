@@ -11,7 +11,7 @@ font_size = 20
 font = ExtResource("1_iaa72")
 font_color = Color(0.639063, 0.639063, 0.639063, 1)
 
-[node name="EditableItemEntry" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "type_lbl")]
+[node name="EditableItemEntry" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "type_lbl", "remove_btn")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_right = -832.0
@@ -21,6 +21,7 @@ script = ExtResource("1_aimwj")
 icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
 name_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/NameLbl")
 type_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TypeLbl")
+remove_btn = NodePath("MarginContainer/HBoxContainer/RemoveBtn")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -63,5 +64,3 @@ size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_iaa72")
 theme_override_font_sizes/font_size = 18
 text = "X"
-
-[connection signal="pressed" from="MarginContainer/HBoxContainer/RemoveBtn" to="." method="_on_remove_btn_pressed"]

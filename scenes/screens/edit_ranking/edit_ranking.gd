@@ -33,7 +33,7 @@ func update_icon_entries() -> void:
 	for icon: Icon in Global.ranking.get_icons():
 		var entry: IconEntry = ICON_ENTRY.instantiate()
 		entry.icon = icon
-		entry.selected.connect(_on_icon_entry_selected.bind(icon))
+		entry.icon_rect.pressed.connect(_on_icon_entry_selected.bind(icon))
 		icon_entries.add_child(entry)
 
 func _on_icon_entry_selected(icon: Icon) -> void:
@@ -64,7 +64,7 @@ func update_item_entires() -> void:
 		entry.icon = item.icon
 		entry.name_lbl.text = item.name
 		entry.type_lbl.text = item.type
-		entry.remove_item.connect(_on_item_entry_remove_item.bind(item.id))
+		entry.remove_btn.pressed.connect(_on_item_entry_remove_item.bind(item.id))
 		item_entries.add_child(entry)
 	no_items_lbl.visible = items.is_empty()
 

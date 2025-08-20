@@ -6,9 +6,3 @@ var icon: Icon:
 	set(new_icon):
 		icon = new_icon
 		icon_rect.texture_normal = await icon.get_texture()
-
-# TODO: Remove redundant signal chains
-signal selected
-
-func _on_icon_rect_pressed() -> void:
-	selected.emit()
