@@ -9,6 +9,7 @@ var icon: Icon:
 		icon = new_icon
 		icon_rect.texture = await icon.get_texture()
 
+# TODO: Remove redundant signal chains
 signal remove_item
 
 func _on_remove_btn_pressed() -> void:

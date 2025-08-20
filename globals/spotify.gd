@@ -6,7 +6,7 @@ var token: String
 
 var search_request: HTTPRequest
 
-signal search_completed(results: Dictionary)
+signal search_completed(data: Dictionary)
 
 func _ready() -> void:
 	var config := ConfigFile.new()
@@ -70,5 +70,21 @@ func _on_search_request_completed(
 			# Otherwise, try again with a new token
 			search(query, type, limit, true)
 			return
-	var results: Dictionary = JSON.parse_string(body.get_string_from_utf8())
-	search_completed.emit(results)
+	var data: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+	search_completed.emit(data)
+
+func get_album_tracks(album_id: String, new_token: bool = false) -> Dictionary:
+	if new_token:
+		await refresh_token()
+	var result: Array = await Http.simple_request(
+		"https://api.spotify.com/v1/albums/%s/tracks" % album_id,
+		["Authorization: Bearer %s" % token],
+		HTTPClient.METHOD_GET
+	)
+	if result.is_empty():
+		if new_token:
+			return {}
+		else:
+			return await get_album_tracks(album_id, true)
+	var body: PackedByteArray = result[3]
+	return JSON.parse_string(body.get_string_from_utf8())

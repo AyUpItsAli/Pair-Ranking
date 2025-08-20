@@ -79,7 +79,12 @@ func get_icons() -> Array[Icon]:
 	return icons
 
 func add_item(item: Item) -> void:
-	item.id = Global.string_to_id_unique(item.name, items.keys())
+	if item.id.is_empty():
+		item.id = Global.string_to_id_unique(item.name, items.keys())
+	elif items.has(item.id):
+		push_error("Trying to add already existing item: \"%s\"" % item.id)
+		return
+	# TODO: Set icon if empty
 	items.set(item.id, item)
 
 func remove_item(item_id: String) -> void:
