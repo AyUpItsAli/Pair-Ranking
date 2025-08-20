@@ -20,27 +20,17 @@ func _on_search_edit_text_changed(_new_text: String) -> void:
 func _on_type_btn_item_selected(_index: int) -> void:
 	update_music_entires()
 
-func clear_music_entires() -> void:
+func update_music_entires() -> void:
 	for entry in music_entries.get_children():
 		music_entries.remove_child(entry)
 		entry.queue_free()
-
-func update_music_entires() -> void:
-	# Display Searching...
-	clear_music_entires()
 	search_lbl.set_text("Searching...")
-	# Get search filters
 	var search: String = Global.non_word_chars.sub(search_edit.text, "+", true)
 	var type: String = type_btn.text.to_lower()
 	var query: String = "%s:%s" % [type, search]
-	# Begin search
 	Spotify.search(query, type, 20)
-	# TODO: Stop previous requests from resolving
 
 func _on_search_completed(results: Dictionary) -> void:
-	# Clear results
-	clear_music_entires()
-	# Get all items
 	var items: Array[Dictionary]
 	if results.has("tracks"):
 		items.append_array(results.tracks.items)
@@ -48,7 +38,6 @@ func _on_search_completed(results: Dictionary) -> void:
 		items.append_array(results.albums.items)
 	if results.has("artists"):
 		items.append_array(results.artists.items)
-	# Create an entry for each item
 	for item: Dictionary in items:
 		var entry: MusicEntry = MUSIC_ENTRY.instantiate()
 		# Icon

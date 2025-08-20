@@ -60,11 +60,13 @@ text_overrun_behavior = 3
 layout_mode = 2
 text = "Artist"
 label_settings = SubResource("LabelSettings_y2qg2")
+text_overrun_behavior = 3
 
 [node name="TypeLbl" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Type"
 label_settings = SubResource("LabelSettings_7wvrl")
+text_overrun_behavior = 3
 
 [node name="Buttons" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

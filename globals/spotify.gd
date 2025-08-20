@@ -1,15 +1,14 @@
 extends Node
 
-var http := HTTPRequest.new()
-
 var client_id: String
 var client_secret: String
 var token: String
 
+var search_request: HTTPRequest
+
 signal search_completed(results: Dictionary)
 
 func _ready() -> void:
-	add_child(http)
 	var config := ConfigFile.new()
 	var error: Error = config.load("res://spotify.cfg")
 	if error != OK:
@@ -32,31 +31,44 @@ func refresh_token() -> void:
 	token = JSON.parse_string(body.get_string_from_utf8()).get("access_token")
 
 func search(query: String, type: String, limit: int = 20, new_token: bool = false) -> void:
+	# Cancel previous request (if one exists)
+	if search_request:
+		search_request.cancel_request()
+		search_request.queue_free()
+	# Refresh token (if requested by caller)
 	if new_token:
 		await refresh_token()
-	http.cancel_request()
-	print("Cancelled")
-	var error: Error = http.request(
+	# Create a new search request
+	search_request = HTTPRequest.new()
+	search_request.request_completed.connect(
+		_on_search_request_completed.bind(query, type, limit, new_token)
+	)
+	add_child(search_request)
+	# Send search request 
+	var error: Error = search_request.request(
 		"https://api.spotify.com/v1/search?q=%s&type=%s&limit=%s" % [query, type, limit],
 		["Authorization: Bearer %s" % token],
 		HTTPClient.METHOD_GET
 	)
-	print("Requested")
 	if error != OK:
 		push_error("Error in Spotify search request: %s" % error)
+
+func _on_search_request_completed(
+	result: int, response: int, _headers: PackedStringArray, body: PackedByteArray,
+	query: String, type: String, limit: int, new_token: bool
+) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("Error in Spotify search result: %s" % result)
 		return
-	var result: Array = await http.request_completed
-	print(result[0])
-	if result[0] != HTTPRequest.RESULT_SUCCESS:
-		push_error("Error in Spotify search result: %s" % result[0])
-		return
-	if result[1] != 200:
+	# If response was unsuccessful
+	if response != 200:
 		if new_token:
-			push_error("Error in Spotify search response: %s" % result[1])
+			# Display error if a new token was used
+			push_error("Error in Spotify search response: %s" % response)
 			return
 		else:
+			# Otherwise, try again with a new token
 			search(query, type, limit, true)
 			return
-	var body: PackedByteArray = result[3]
 	var results: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	search_completed.emit(results)
