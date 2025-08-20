@@ -3,6 +3,7 @@ class_name ItemEntry extends PanelContainer
 @export var rank_lbl: Label
 @export var icon_rect: TextureRect
 @export var name_lbl: Label
+@export var type_lbl: Label
 
 var icon: Icon:
 	set(new_icon):

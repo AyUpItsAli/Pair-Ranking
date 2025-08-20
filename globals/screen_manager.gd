@@ -1,11 +1,12 @@
 extends Node
 
-enum Screen { MAIN, EDIT_RANKING, ADD_ITEM, VIEW_RANKING, RANK_ITEMS }
+enum Screen { MAIN, EDIT_RANKING, ADD_ITEM, ADD_MUSIC, VIEW_RANKING, RANK_ITEMS }
 
 const UIDS: Dictionary = {
 	Screen.MAIN: "uid://bqr8c27bfa1fq",
 	Screen.EDIT_RANKING: "uid://bv3hqf26ln738",
 	Screen.ADD_ITEM: "uid://d2n67iox5s2gc",
+	Screen.ADD_MUSIC: "uid://b3betdot8mr0d",
 	Screen.VIEW_RANKING: "uid://yhdud82o8og3",
 	Screen.RANK_ITEMS: "uid://0amivtowicwr"
 }

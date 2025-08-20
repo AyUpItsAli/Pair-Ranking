@@ -49,8 +49,7 @@ func _on_name_edit_text_changed(new_name: String) -> void:
 	Global.ranking.name = new_name
 
 func _on_add_music_btn_pressed() -> void:
-	# TODO: Spotify music search: Tracks, Albums, etc
-	pass
+	ScreenManager.go_to(ScreenManager.Screen.ADD_MUSIC)
 
 func _on_add_custom_btn_pressed() -> void:
 	ScreenManager.go_to(ScreenManager.Screen.ADD_ITEM)

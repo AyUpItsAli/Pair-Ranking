@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3betdot8mr0d"]
+[gd_scene load_steps=8 format=3 uid="uid://b3betdot8mr0d"]
 
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="1_1b65a"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_6jybo"]
 [ext_resource type="Script" uid="uid://dp01ukpj5ndjj" path="res://scenes/screens/add_music/add_music.gd" id="1_8vtxj"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="2_6jybo"]
+[ext_resource type="PackedScene" uid="uid://blr8c0qqe5ccm" path="res://scenes/screens/add_music/music_entry.tscn" id="5_0rted"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6jybo"]
 font = ExtResource("1_1b65a")
@@ -14,7 +15,7 @@ font_color = Color(0, 0, 0, 1)
 font = ExtResource("2_6jybo")
 font_size = 24
 
-[node name="AddMusic" type="Control"]
+[node name="AddMusic" type="Control" node_paths=PackedStringArray("search_edit", "type_btn", "music_entries", "search_lbl")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +23,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8vtxj")
+search_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SearchEdit")
+type_btn = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/TypeBtn")
+music_entries = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MusicEntries")
+search_lbl = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/SearchLbl")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -97,7 +102,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="SearchEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 35)
+custom_minimum_size = Vector2(300, 35)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6jybo")
 theme_override_font_sizes/font_size = 20
@@ -109,14 +114,14 @@ theme_override_font_sizes/font_size = 20
 selected = 0
 item_count = 3
 popup/item_0/text = "Track"
-popup/item_0/id = 0
+popup/item_0/id = 1
 popup/item_1/text = "Album"
-popup/item_1/id = 1
+popup/item_1/id = 2
 popup/item_2/text = "Artist"
-popup/item_2/id = 2
+popup/item_2/id = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 400)
+custom_minimum_size = Vector2(800, 400)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
@@ -135,10 +140,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="NoMusicLbl" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="MusicEntry" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MusicEntries" instance=ExtResource("5_0rted")]
+layout_mode = 2
+
+[node name="SearchLbl" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-text = "Couldn't find any music :("
+text = "Search label"
 label_settings = SubResource("LabelSettings_0rted")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/TypeBtn" to="." method="_on_type_btn_item_selected"]

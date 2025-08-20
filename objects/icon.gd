@@ -31,9 +31,8 @@ func load_texture() -> Texture2D:
 		return ImageTexture.create_from_image(image)
 	if url.is_empty():
 		return EMPTY_TEXTURE
-	var result: Array = await Http.request(url)
-	if result[1] != 200:
-		push_error("Error requesting icon \"%s\": %s" % [url, result[1]])
+	var result: Array = await Http.simple_request(url)
+	if result.is_empty():
 		return EMPTY_TEXTURE
 	var body: PackedByteArray = result[3]
 	var url_image := Image.new()

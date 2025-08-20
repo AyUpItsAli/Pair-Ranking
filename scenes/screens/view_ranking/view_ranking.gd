@@ -26,6 +26,7 @@ func update_item_entires() -> void:
 		entry.rank = item.rank
 		entry.icon = item.icon
 		entry.name_lbl.text = item.name
+		entry.type_lbl.text = item.type
 		item_entries.add_child(entry)
 	no_items_lbl.visible = items.is_empty()
 
