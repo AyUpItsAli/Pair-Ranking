@@ -23,8 +23,8 @@ static func get_path_from_id(ranking_id: String) -> String:
 	return "%s/%s.%s" % [FOLDER, ranking_id, EXTENSION]
 
 static func get_rankings() -> Array[Ranking]:
-	var rankings: Array[Ranking]
 	verify_directory()
+	var rankings: Array[Ranking]
 	for file in DirAccess.open(FOLDER).get_files():
 		var path: String = get_path_from_id(file.get_basename())
 		var ranking: Ranking = ResourceLoader.load(path)
@@ -50,8 +50,8 @@ func save() -> void:
 	delete()
 	# Set new unique id
 	var existing_ids: Array[String]
-	for ranking in get_rankings():
-		existing_ids.append(ranking.id)
+	for file in DirAccess.get_files_at(FOLDER):
+		existing_ids.append(file.get_basename())
 	id = Global.string_to_id_unique(name, existing_ids)
 	# Save ranking
 	var path: String = get_path_from_id(id)

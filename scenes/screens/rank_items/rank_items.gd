@@ -7,6 +7,8 @@ var completed_pairs: Array[Array]
 
 signal item_selected(item: Item)
 
+# TODO: Review rank items screen
+
 func _ready() -> void:
 	completed_pairs.clear()
 	var items: Array[Item] = Global.ranking.items.values()

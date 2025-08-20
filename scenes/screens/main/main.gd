@@ -24,8 +24,6 @@ func _on_empty_ranking_btn_pressed() -> void:
 	Global.ranking = Ranking.create_untitled_ranking()
 	ScreenManager.go_to(ScreenManager.Screen.EDIT_RANKING)
 
-# TODO: Store rankings and add a refresh button
-
 func update_ranking_entires() -> void:
 	for entry in ranking_entries.get_children():
 		ranking_entries.remove_child(entry)

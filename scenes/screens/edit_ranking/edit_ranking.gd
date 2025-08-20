@@ -9,6 +9,8 @@ const ITEM_ENTRY = preload("res://scenes/screens/edit_ranking/editable_item_entr
 @export var item_entries: VBoxContainer
 @export var no_items_lbl: Label
 
+# TODO: Create copy of ranking to edit
+
 func _ready() -> void:
 	Global.ranking.icons_updated.connect(update_icon_field)
 	Global.ranking.items_updated.connect(update_item_entires)
