@@ -41,3 +41,6 @@ func load_texture() -> Texture2D:
 		push_error("Error loading icon \"%s\": %s" % [url, load_error])
 		return EMPTY_TEXTURE
 	return ImageTexture.create_from_image(url_image)
+
+func is_empty() -> bool:
+	return image == null and url.is_empty()

@@ -5,8 +5,15 @@ const EXTENSION = "tres"
 
 @export var id: String
 @export var name: String
-@export var icon: Icon
+@export var icon: Icon:
+	set(new_icon):
+		icon = new_icon
+		icons_updated.emit()
 @export var items: Dictionary[String, Item]
+@export var icons: Array[Icon]
+
+signal items_updated
+signal icons_updated
 
 static func verify_directory() -> void:
 	if not DirAccess.dir_exists_absolute(FOLDER):
@@ -64,8 +71,8 @@ func get_items_ranked() -> Array[Item]:
 	)
 	return ranked
 
-func get_icons() -> Array[Icon]:
-	var icons: Array[Icon]
+func update_icons() -> void:
+	icons.clear()
 	for item: Item in items.values():
 		if item.icon.url.is_empty():
 			continue
@@ -76,7 +83,11 @@ func get_icons() -> Array[Icon]:
 				break
 		if not exists:
 			icons.append(item.icon)
-	return icons
+	if not icon.url.is_empty() and not icons.has(icon):
+		icon = Icon.new()
+	if icon.is_empty() and not icons.is_empty():
+		icon = icons.front()
+	icons_updated.emit()
 
 func add_item(item: Item) -> void:
 	if item.id.is_empty():
@@ -84,8 +95,11 @@ func add_item(item: Item) -> void:
 	elif items.has(item.id):
 		push_error("Trying to add already existing item: \"%s\"" % item.id)
 		return
-	# TODO: Set icon if empty
 	items.set(item.id, item)
+	items_updated.emit()
+	update_icons()
 
 func remove_item(item_id: String) -> void:
 	items.erase(item_id)
+	items_updated.emit()
+	update_icons()

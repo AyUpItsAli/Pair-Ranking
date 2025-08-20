@@ -10,9 +10,10 @@ const ITEM_ENTRY = preload("res://scenes/screens/edit_ranking/editable_item_entr
 @export var no_items_lbl: Label
 
 func _ready() -> void:
+	Global.ranking.icons_updated.connect(update_icon_field)
+	Global.ranking.items_updated.connect(update_item_entires)
 	name_edit.text = Global.ranking.name
-	icon_selector.icon = Global.ranking.icon
-	update_icon_entries()
+	update_icon_field()
 	update_item_entires()
 
 func _on_save_btn_pressed() -> void:
@@ -26,18 +27,18 @@ func _on_delete_btn_pressed() -> void:
 func _on_icon_selector_icon_selected(icon: Icon) -> void:
 	Global.ranking.icon = icon
 
-func update_icon_entries() -> void:
+func update_icon_field() -> void:
+	icon_selector.icon = Global.ranking.icon
 	for entry in icon_entries.get_children():
 		icon_entries.remove_child(entry)
 		entry.queue_free()
-	for icon: Icon in Global.ranking.get_icons():
+	for icon: Icon in Global.ranking.icons:
 		var entry: IconEntry = ICON_ENTRY.instantiate()
 		entry.icon = icon
 		entry.icon_rect.pressed.connect(_on_icon_entry_selected.bind(icon))
 		icon_entries.add_child(entry)
 
 func _on_icon_entry_selected(icon: Icon) -> void:
-	icon_selector.icon = icon
 	Global.ranking.icon = icon
 
 func _on_name_edit_text_changed(new_name: String) -> void:
@@ -70,5 +71,3 @@ func update_item_entires() -> void:
 
 func _on_item_entry_remove_item(item_id: String) -> void:
 	Global.ranking.remove_item(item_id)
-	update_icon_entries()
-	update_item_entires()
