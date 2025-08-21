@@ -1,22 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt4i2rwqhxvgb"]
+[gd_scene load_steps=6 format=3 uid="uid://bt4i2rwqhxvgb"]
 
 [ext_resource type="Script" uid="uid://o5t6mqrfhwef" path="res://scenes/screens/edit_ranking/editable_item_entry.gd" id="1_aimwj"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_iaa72"]
+[ext_resource type="Texture2D" uid="uid://dw3ik524dcu82" path="res://assets/images/trash.svg" id="3_o3fm4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aimwj"]
 font = ExtResource("1_iaa72")
-font_size = 20
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_o3fm4"]
 font = ExtResource("1_iaa72")
+font_size = 14
 font_color = Color(0.639063, 0.639063, 0.639063, 1)
 
 [node name="EditableItemEntry" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "type_lbl", "remove_btn")]
-anchors_preset = 10
-anchor_right = 1.0
-offset_right = -832.0
+offset_right = 480.0
 offset_bottom = 70.0
-grow_horizontal = 2
 script = ExtResource("1_aimwj")
 icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
 name_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/NameLbl")
@@ -58,9 +57,11 @@ text = "Type"
 label_settings = SubResource("LabelSettings_o3fm4")
 
 [node name="RemoveBtn" type="Button" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
-size_flags_vertical = 0
+theme_override_constants/icon_max_width = 35
 theme_override_fonts/font = ExtResource("1_iaa72")
 theme_override_font_sizes/font_size = 18
-text = "X"
+icon = ExtResource("3_o3fm4")
+icon_alignment = 1
+expand_icon = true

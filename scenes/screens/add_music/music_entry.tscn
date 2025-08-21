@@ -15,11 +15,8 @@ font = ExtResource("2_55pp1")
 font_color = Color(0.639063, 0.639063, 0.639063, 1)
 
 [node name="MusicEntry" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "artist_lbl", "type_lbl", "add_tracks_btn", "add_btn")]
-anchors_preset = 10
-anchor_right = 1.0
-offset_right = -372.0
+offset_right = 780.0
 offset_bottom = 95.0
-grow_horizontal = 2
 script = ExtResource("1_u1kcv")
 icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
 name_lbl = NodePath("MarginContainer/HBoxContainer/VBoxContainer/NameLbl")

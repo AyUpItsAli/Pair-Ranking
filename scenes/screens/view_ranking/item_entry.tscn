@@ -17,10 +17,8 @@ font_size = 18
 font_color = Color(0.639063, 0.639063, 0.639063, 1)
 
 [node name="ItemEntry" type="PanelContainer" node_paths=PackedStringArray("rank_lbl", "icon_rect", "name_lbl", "type_lbl")]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 70.0
-grow_horizontal = 2
+offset_right = 480.0
+offset_bottom = 95.0
 script = ExtResource("1_55005")
 rank_lbl = NodePath("MarginContainer/HBoxContainer/RankLbl")
 icon_rect = NodePath("MarginContainer/HBoxContainer/IconRect")
@@ -44,7 +42,7 @@ text = "#1"
 label_settings = SubResource("LabelSettings_f7gkb")
 
 [node name="IconRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 60)
+custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
