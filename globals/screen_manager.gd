@@ -1,6 +1,13 @@
 extends Node
 
-enum Screen { MAIN, EDIT_RANKING, ADD_ITEM, ADD_MUSIC, VIEW_RANKING, RANK_ITEMS }
+enum Screen {
+	MAIN,
+	EDIT_RANKING,
+	ADD_ITEM,
+	ADD_MUSIC,
+	VIEW_RANKING,
+	RANK_ITEMS
+}
 
 const UIDS: Dictionary = {
 	Screen.MAIN: "uid://bqr8c27bfa1fq",
@@ -10,15 +17,6 @@ const UIDS: Dictionary = {
 	Screen.VIEW_RANKING: "uid://yhdud82o8og3",
 	Screen.RANK_ITEMS: "uid://0amivtowicwr"
 }
-
-# MAIN - []
-# VIEW - [MAIN]
-# EDIT - [MAIN, VIEW]
-# VIEW - [MAIN]
-
-# MAIN - []
-# EDIT - [MAIN]
-# VIEW - [MAIN]
 
 var current_screen: Screen
 var history: Array[Screen]

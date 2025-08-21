@@ -18,6 +18,7 @@ func _on_new_ranking_btn_pressed() -> void:
 	new_ranking_menu.show()
 
 func _on_album_ranking_btn_pressed() -> void:
+	# TODO: Create from Album
 	pass
 
 func _on_empty_ranking_btn_pressed() -> void:
