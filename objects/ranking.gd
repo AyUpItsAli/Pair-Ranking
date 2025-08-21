@@ -38,9 +38,9 @@ static func get_rankings() -> Array[Ranking]:
 	)
 	return rankings
 
-static func create_untitled_ranking() -> Ranking:
+static func create_empty_ranking(ranking_name: String = "Untitled Ranking") -> Ranking:
 	var ranking := Ranking.new()
-	ranking.name = "Untitled Ranking"
+	ranking.name = ranking_name
 	ranking.icon = Icon.new()
 	return ranking
 

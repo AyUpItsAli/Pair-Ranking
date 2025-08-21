@@ -18,11 +18,10 @@ func _on_new_ranking_btn_pressed() -> void:
 	new_ranking_menu.show()
 
 func _on_album_ranking_btn_pressed() -> void:
-	# TODO: Create from Album
-	pass
+	ScreenManager.go_to(ScreenManager.Screen.SELECT_ALBUM)
 
 func _on_empty_ranking_btn_pressed() -> void:
-	Global.ranking = Ranking.create_untitled_ranking()
+	Global.ranking = Ranking.create_empty_ranking()
 	ScreenManager.go_to(ScreenManager.Screen.EDIT_RANKING)
 
 func update_ranking_entires() -> void:

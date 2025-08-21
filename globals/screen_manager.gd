@@ -2,18 +2,20 @@ extends Node
 
 enum Screen {
 	MAIN,
+	SELECT_ALBUM,
 	EDIT_RANKING,
-	ADD_ITEM,
 	ADD_MUSIC,
+	ADD_ITEM,
 	VIEW_RANKING,
 	RANK_ITEMS
 }
 
 const UIDS: Dictionary = {
 	Screen.MAIN: "uid://bqr8c27bfa1fq",
+	Screen.SELECT_ALBUM: "uid://bhhnqmcehf6rx",
 	Screen.EDIT_RANKING: "uid://bv3hqf26ln738",
-	Screen.ADD_ITEM: "uid://d2n67iox5s2gc",
 	Screen.ADD_MUSIC: "uid://b3betdot8mr0d",
+	Screen.ADD_ITEM: "uid://d2n67iox5s2gc",
 	Screen.VIEW_RANKING: "uid://yhdud82o8og3",
 	Screen.RANK_ITEMS: "uid://0amivtowicwr"
 }

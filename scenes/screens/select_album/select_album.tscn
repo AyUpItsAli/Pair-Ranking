@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhhnqmcehf6rx"]
+
+[ext_resource type="Script" uid="uid://i00ee6efpp5j" path="res://scenes/screens/select_album/select_album.gd" id="1_em434"]
+[ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_2i28h"]
+[ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="3_57la5"]
+[ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="4_aigs8"]
+[ext_resource type="PackedScene" uid="uid://g0yt01fl25e8" path="res://scenes/screens/select_album/album_entry.tscn" id="5_2i28h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2i28h"]
+font = ExtResource("3_57la5")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_57la5"]
+font = ExtResource("4_aigs8")
+font_size = 24
+
+[node name="SelectAlbum" type="Control" node_paths=PackedStringArray("search_edit", "album_entries", "search_lbl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_em434")
+search_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SearchEdit")
+album_entries = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/AlbumEntries")
+search_lbl = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/SearchLbl")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LeftOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="BackBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions"]
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_2i28h")
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="TitleLbl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Select Album"
+label_settings = SubResource("LabelSettings_2i28h")
+horizontal_alignment = 1
+
+[node name="RightOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 10
+
+[node name="Options" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SearchEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 35)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_aigs8")
+theme_override_font_sizes/font_size = 20
+placeholder_text = "Search Albums"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AlbumEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="AlbumEntry" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/AlbumEntries" instance=ExtResource("5_2i28h")]
+layout_mode = 2
+
+[node name="SearchLbl" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Search label"
+label_settings = SubResource("LabelSettings_57la5")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/SearchEdit" to="." method="_on_search_edit_text_changed"]
