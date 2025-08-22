@@ -1,16 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqr8c27bfa1fq"]
+[gd_scene load_steps=10 format=3 uid="uid://bqr8c27bfa1fq"]
 
 [ext_resource type="Script" uid="uid://c2drg0245fts8" path="res://scenes/screens/main/main.gd" id="1_7j7ft"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_7j7ft"]
 [ext_resource type="Texture2D" uid="uid://beiq2d8ppvb31" path="res://assets/images/spotify_logo_green.png" id="2_e4nc2"]
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="2_f7gkb"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_m3w3q"]
 [ext_resource type="PackedScene" uid="uid://cuvnjfxpjrfbo" path="res://scenes/screens/main/ranking_entry.tscn" id="5_lqfnm"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="7_m3w3q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7j7ft"]
 font = ExtResource("2_f7gkb")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0h5i5"]
 font = ExtResource("7_m3w3q")
@@ -29,13 +29,8 @@ new_ranking_menu = NodePath("MarginContainer/VBoxContainer/PanelContainer/Margin
 ranking_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/RankingEntries")
 no_rankings_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/NoRankingsLbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_m3w3q")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

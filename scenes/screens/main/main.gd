@@ -7,6 +7,9 @@ const RANKING_ENTRY = preload("res://scenes/screens/main/ranking_entry.tscn")
 @export var ranking_entries: VBoxContainer
 @export var no_rankings_lbl: Label
 
+# TODO: Download ranking file
+# TODO: Import ranking file
+
 func _ready() -> void:
 	Global.ranking = null
 	new_ranking_btn.show()

@@ -1,20 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0v2r0lix75ky"]
+[gd_scene load_steps=5 format=3 uid="uid://b0v2r0lix75ky"]
 
 [ext_resource type="Script" uid="uid://cqm1slkcooqug" path="res://scenes/screens/rank_items/choice.gd" id="1_jxhwa"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_pdtke"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v1i7n"]
 font = ExtResource("2_pdtke")
-font_size = 20
+font_size = 24
 
-[node name="Choice" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl")]
+[sub_resource type="LabelSettings" id="LabelSettings_c5u51"]
+font = ExtResource("2_pdtke")
+font_size = 18
+font_color = Color(0.701563, 0.701563, 0.701563, 1)
+
+[node name="Choice" type="PanelContainer" node_paths=PackedStringArray("icon_rect", "name_lbl", "type_lbl")]
 offset_right = 300.0
-offset_bottom = 334.0
+offset_bottom = 371.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_jxhwa")
 icon_rect = NodePath("MarginContainer/VBoxContainer/IconRect")
 name_lbl = NodePath("MarginContainer/VBoxContainer/NameLbl")
+type_lbl = NodePath("MarginContainer/VBoxContainer/TypeLbl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -38,6 +44,14 @@ custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 text = "Name"
 label_settings = SubResource("LabelSettings_v1i7n")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="TypeLbl" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+text = "Type"
+label_settings = SubResource("LabelSettings_c5u51")
 horizontal_alignment = 1
 autowrap_mode = 3
 

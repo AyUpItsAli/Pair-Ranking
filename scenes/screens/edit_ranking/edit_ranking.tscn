@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bv3hqf26ln738"]
+[gd_scene load_steps=14 format=3 uid="uid://bv3hqf26ln738"]
 
 [ext_resource type="PackedScene" uid="uid://dnhyb6von10hj" path="res://scenes/widgets/icon_selector/icon_selector.tscn" id="1_4dxoy"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_85343"]
 [ext_resource type="Script" uid="uid://cqg7im5s34spj" path="res://scenes/screens/edit_ranking/edit_ranking.gd" id="1_vm0hf"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_m4y80"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="2_x7ci8"]
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="3_r61qt"]
 [ext_resource type="PackedScene" uid="uid://bt4i2rwqhxvgb" path="res://scenes/screens/edit_ranking/editable_item_entry.tscn" id="4_vegys"]
@@ -12,7 +13,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_vx0vb"]
 font = ExtResource("3_r61qt")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_lqlox"]
 font = ExtResource("1_85343")
@@ -40,13 +40,8 @@ name_edit = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContain
 item_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/ScrollContainer/ItemEntries")
 no_items_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Items/PanelContainer/MarginContainer/NoItemsLbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_m4y80")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -201,7 +196,7 @@ theme_override_font_sizes/font_size = 24
 text = "Delete"
 
 [node name="Items" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 

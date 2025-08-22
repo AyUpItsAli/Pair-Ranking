@@ -1,15 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3betdot8mr0d"]
+[gd_scene load_steps=9 format=3 uid="uid://b3betdot8mr0d"]
 
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="1_1b65a"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="1_6jybo"]
 [ext_resource type="Script" uid="uid://dp01ukpj5ndjj" path="res://scenes/screens/add_music/add_music.gd" id="1_8vtxj"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="2_6jybo"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_m40uh"]
 [ext_resource type="PackedScene" uid="uid://blr8c0qqe5ccm" path="res://scenes/screens/add_music/music_entry.tscn" id="5_0rted"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6jybo"]
 font = ExtResource("1_1b65a")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0rted"]
 font = ExtResource("2_6jybo")
@@ -28,13 +28,8 @@ type_btn = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Options/MarginC
 music_entries = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MusicEntries")
 search_lbl = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/SearchLbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_m40uh")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

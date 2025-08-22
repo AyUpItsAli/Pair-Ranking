@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://yhdud82o8og3"]
+[gd_scene load_steps=9 format=3 uid="uid://yhdud82o8og3"]
 
 [ext_resource type="Script" uid="uid://d3lexuiqwpj4b" path="res://scenes/screens/view_ranking/view_ranking.gd" id="1_h4uqq"]
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="2_hp6cf"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_rapus"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_y5s16"]
 [ext_resource type="PackedScene" uid="uid://uyhifjhgey5" path="res://scenes/screens/view_ranking/item_entry.tscn" id="4_h4uqq"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="4_ij14u"]
@@ -9,7 +10,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_7j7ft"]
 font = ExtResource("2_hp6cf")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hp6cf"]
 font = ExtResource("4_ij14u")
@@ -27,13 +27,8 @@ name_lbl = NodePath("MarginContainer/VBoxContainer/HBoxContainer/NameLbl")
 item_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/ItemEntries")
 no_items_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/NoItemsLbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_rapus")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -87,7 +82,7 @@ theme_override_font_sizes/font_size = 20
 text = "Edit"
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -121,7 +116,7 @@ autowrap_mode = 3
 [node name="RankBtn" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_y5s16")
 theme_override_font_sizes/font_size = 20
 text = "Rank Items"

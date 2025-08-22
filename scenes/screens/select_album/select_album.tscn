@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhhnqmcehf6rx"]
+[gd_scene load_steps=9 format=3 uid="uid://bhhnqmcehf6rx"]
 
 [ext_resource type="Script" uid="uid://i00ee6efpp5j" path="res://scenes/screens/select_album/select_album.gd" id="1_em434"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_2i28h"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_57la5"]
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="3_57la5"]
 [ext_resource type="FontFile" uid="uid://bslo4xtedu75k" path="res://assets/fonts/Roboto-Regular.ttf" id="4_aigs8"]
 [ext_resource type="PackedScene" uid="uid://g0yt01fl25e8" path="res://scenes/screens/select_album/album_entry.tscn" id="5_2i28h"]
@@ -9,7 +10,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_2i28h"]
 font = ExtResource("3_57la5")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_57la5"]
 font = ExtResource("4_aigs8")
@@ -27,13 +27,8 @@ search_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/Options/Marg
 album_entries = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/AlbumEntries")
 search_lbl = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/SearchLbl")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_57la5")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

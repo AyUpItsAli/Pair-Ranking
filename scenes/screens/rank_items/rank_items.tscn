@@ -1,19 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://0amivtowicwr"]
+[gd_scene load_steps=8 format=3 uid="uid://0amivtowicwr"]
 
 [ext_resource type="Script" uid="uid://ugo5awaskwyj" path="res://scenes/screens/rank_items/rank_items.gd" id="1_bnefp"]
 [ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="2_2rv4d"]
+[ext_resource type="PackedScene" uid="uid://drcmogv7v2qqm" path="res://scenes/widgets/background/background.tscn" id="2_vdhxh"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_x5vjr"]
 [ext_resource type="PackedScene" uid="uid://b0v2r0lix75ky" path="res://scenes/screens/rank_items/choice.tscn" id="3_2rv4d"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x5vjr"]
 font = ExtResource("2_2rv4d")
 font_size = 40
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_egofa"]
 font = ExtResource("2_2rv4d")
 font_size = 32
-font_color = Color(0, 0, 0, 1)
 
 [node name="RankItems" type="Control" node_paths=PackedStringArray("start_btn", "choices_menu", "choice_a", "choice_b")]
 layout_mode = 3
@@ -28,13 +27,8 @@ choices_menu = NodePath("MarginContainer/VBoxContainer/ChoicesMenu")
 choice_a = NodePath("MarginContainer/VBoxContainer/ChoicesMenu/ChoiceA")
 choice_b = NodePath("MarginContainer/VBoxContainer/ChoicesMenu/ChoiceB")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_vdhxh")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
