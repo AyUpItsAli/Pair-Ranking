@@ -34,5 +34,5 @@ func _on_rank_btn_pressed() -> void:
 	ScreenManager.go_to(ScreenManager.Screen.RANK_ITEMS)
 
 func _on_download_btn_pressed() -> void:
-	# TODO: Download ranking file
+	# TODO: Download ranking file using Javascript bridge
 	pass

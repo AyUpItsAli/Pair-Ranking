@@ -25,6 +25,8 @@ func _on_empty_ranking_btn_pressed() -> void:
 	Global.ranking = Ranking.create_empty_ranking()
 	ScreenManager.go_to(ScreenManager.Screen.EDIT_RANKING)
 
+# TODO: Replace file dialog with Javascript bridge
+
 func _on_import_ranking_btn_pressed() -> void:
 	import_dialog.show()
 

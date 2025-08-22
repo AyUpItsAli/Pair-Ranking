@@ -10,6 +10,8 @@ var icon: Icon:
 
 signal icon_selected(icon: Icon)
 
+# TODO: Replace file dialog with Javascript bridge
+
 func _on_icon_rect_pressed() -> void:
 	icon_dialog.show()
 
