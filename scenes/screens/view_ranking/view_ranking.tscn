@@ -24,8 +24,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h4uqq")
 name_lbl = NodePath("MarginContainer/VBoxContainer/HBoxContainer/NameLbl")
-item_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/ItemEntries")
-no_items_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/NoItemsLbl")
+item_entries = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/ItemEntries")
+no_items_lbl = NodePath("MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/NoItemsLbl")
 
 [node name="Background" parent="." instance=ExtResource("2_rapus")]
 layout_mode = 1
@@ -81,31 +81,35 @@ theme_override_fonts/font = ExtResource("2_y5s16")
 theme_override_font_sizes/font_size = 20
 text = "Edit"
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(800, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 6
+theme_override_constants/separation = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 400)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="ItemEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="ItemEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ItemEntry" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/ItemEntries" instance=ExtResource("4_h4uqq")]
+[node name="ItemEntry" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/ItemEntries" instance=ExtResource("4_h4uqq")]
 layout_mode = 2
 
-[node name="NoItemsLbl" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="NoItemsLbl" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 text = "This ranking has no items yet"
@@ -113,14 +117,36 @@ label_settings = SubResource("LabelSettings_hp6cf")
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="RankBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Options" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RankBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(120, 48)
 layout_mode = 2
-size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_y5s16")
 theme_override_font_sizes/font_size = 20
 text = "Rank Items"
 
+[node name="DownloadBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_y5s16")
+theme_override_font_sizes/font_size = 20
+text = "Download"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions/BackBtn" to="." method="_on_back_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/RightOptions/EditBtn" to="." method="_on_edit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/RankBtn" to="." method="_on_rank_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/RankBtn" to="." method="_on_rank_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Options/MarginContainer/HBoxContainer/DownloadBtn" to="." method="_on_download_btn_pressed"]

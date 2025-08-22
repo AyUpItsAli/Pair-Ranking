@@ -16,7 +16,7 @@ font_size = 40
 font = ExtResource("7_m3w3q")
 font_size = 24
 
-[node name="Main" type="Control" node_paths=PackedStringArray("new_ranking_btn", "new_ranking_menu", "ranking_entries", "no_rankings_lbl")]
+[node name="Main" type="Control" node_paths=PackedStringArray("new_ranking_btn", "new_ranking_menu", "ranking_entries", "no_rankings_lbl", "import_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +28,7 @@ new_ranking_btn = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginC
 new_ranking_menu = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu")
 ranking_entries = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/RankingEntries")
 no_rankings_lbl = NodePath("MarginContainer/VBoxContainer/PanelContainer/MarginContainer/NoRankingsLbl")
+import_dialog = NodePath("ImportDialog")
 
 [node name="Background" parent="." instance=ExtResource("2_m3w3q")]
 layout_mode = 1
@@ -104,11 +105,18 @@ icon = ExtResource("2_e4nc2")
 icon_alignment = 2
 
 [node name="EmptyRankingBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_7j7ft")
 theme_override_font_sizes/font_size = 24
 text = "Start from Scratch"
+
+[node name="ImportRankingBtn" type="Button" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_7j7ft")
+theme_override_font_sizes/font_size = 24
+text = "Import from File"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -130,6 +138,19 @@ label_settings = SubResource("LabelSettings_0h5i5")
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="ImportDialog" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Select rankings to import"
+initial_position = 2
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.tres,*.res;application/x-godot-resource")
+use_native_dialog = true
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingBtn" to="." method="_on_new_ranking_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer/AlbumRankingBtn" to="." method="_on_album_ranking_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer/EmptyRankingBtn" to="." method="_on_empty_ranking_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/NewRankingMenu/MarginContainer/HBoxContainer/ImportRankingBtn" to="." method="_on_import_ranking_btn_pressed"]
+[connection signal="files_selected" from="ImportDialog" to="." method="_on_import_dialog_files_selected"]
