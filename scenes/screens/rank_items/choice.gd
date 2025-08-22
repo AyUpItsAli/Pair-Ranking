@@ -1,43 +1,53 @@
 class_name Choice extends PanelContainer
 
-const NORMAL_SIZE = 250
-const GROW_SIZE = 300
+const FADE_IN_TIME = 0.2
+const COLOR_FADE_TIME = 0.2
+const GLIDE_TIME = 0.3
+const GLIDE_HEIGHT = 70
+const GLIDE_INTERVAL = 0.2
 
 @export var icon_rect: TextureRect
 @export var name_lbl: Label
 
-var item: Item
+var item: Item:
+	set(new_item):
+		item = new_item
+		icon_rect.texture = await item.icon.get_texture()
+		name_lbl.text = item.name
 
-signal chosen(item: Item)
+signal pressed
 
 func _ready() -> void:
-	shrink()
-	update()
+	reset()
 
-func update() -> void:
-	visible = item != null
-	if not visible:
-		return
-	icon_rect.texture = await item.icon.get_texture()
-	name_lbl.text = item.name
+func reset() -> void:
+	modulate = Color(1, 1, 1, 0)
+	position.y = 0
 
-func clear() -> void:
-	item = null
-	update()
+func fade_in() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "modulate:a", 1, FADE_IN_TIME)
+	await tween.finished
 
-func grow() -> void:
-	icon_rect.custom_minimum_size = Vector2(GROW_SIZE, GROW_SIZE)
+func selected() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "modulate", Color.SPRING_GREEN, COLOR_FADE_TIME)
+	tween.tween_property(self, "modulate:a", 0, GLIDE_TIME)
+	tween.parallel().tween_property(self, "position:y", -GLIDE_HEIGHT, GLIDE_TIME)
+	tween.tween_interval(GLIDE_INTERVAL)
+	await tween.finished
+	reset()
 
-func shrink() -> void:
-	icon_rect.custom_minimum_size = Vector2(NORMAL_SIZE, NORMAL_SIZE)
+func not_selected() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "modulate", Color.RED, COLOR_FADE_TIME)
+	tween.tween_property(self, "modulate:a", 0, GLIDE_TIME)
+	tween.parallel().tween_property(self, "position:y", GLIDE_HEIGHT, GLIDE_TIME)
+	tween.tween_interval(GLIDE_INTERVAL)
+	await tween.finished
+	reset()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			chosen.emit(item)
-
-func _on_mouse_entered() -> void:
-	grow()
-
-func _on_mouse_exited() -> void:
-	shrink()
+			pressed.emit()

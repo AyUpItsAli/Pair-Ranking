@@ -63,13 +63,20 @@ func delete() -> void:
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
 
-func get_items_ranked() -> Array[Item]:
-	var ranked: Array[Item] = items.values()
-	ranked.sort_custom(
-		func(a: Item, b: Item) -> bool:
-			return a.rank < b.rank
-	)
-	return ranked
+func add_item(item: Item) -> void:
+	if item.id.is_empty():
+		item.id = Global.string_to_id_unique(item.name, items.keys())
+	elif items.has(item.id):
+		push_error("Trying to add already existing item: \"%s\"" % item.id)
+		return
+	items.set(item.id, item)
+	items_updated.emit()
+	update_icons()
+
+func remove_item(item_id: String) -> void:
+	items.erase(item_id)
+	items_updated.emit()
+	update_icons()
 
 func update_icons() -> void:
 	icons.clear()
@@ -89,17 +96,12 @@ func update_icons() -> void:
 		icon = icons.front()
 	icons_updated.emit()
 
-func add_item(item: Item) -> void:
-	if item.id.is_empty():
-		item.id = Global.string_to_id_unique(item.name, items.keys())
-	elif items.has(item.id):
-		push_error("Trying to add already existing item: \"%s\"" % item.id)
-		return
-	items.set(item.id, item)
-	items_updated.emit()
-	update_icons()
-
-func remove_item(item_id: String) -> void:
-	items.erase(item_id)
-	items_updated.emit()
-	update_icons()
+func get_items_ranked() -> Array[Item]:
+	var ranked: Array[Item] = items.values()
+	ranked.sort_custom(
+		func(a: Item, b: Item) -> bool:
+			if a.rank == 0:
+				return false
+			return a.rank < b.rank
+	)
+	return ranked

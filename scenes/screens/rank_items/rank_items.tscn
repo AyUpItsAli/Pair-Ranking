@@ -1,20 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://0amivtowicwr"]
+[gd_scene load_steps=7 format=3 uid="uid://0amivtowicwr"]
 
 [ext_resource type="Script" uid="uid://ugo5awaskwyj" path="res://scenes/screens/rank_items/rank_items.gd" id="1_bnefp"]
+[ext_resource type="FontFile" uid="uid://djmj6mcpi6goq" path="res://assets/fonts/Roboto-Bold.ttf" id="2_2rv4d"]
 [ext_resource type="FontFile" uid="uid://bll5g7hqu1vkt" path="res://assets/fonts/Roboto-Medium.ttf" id="2_x5vjr"]
 [ext_resource type="PackedScene" uid="uid://b0v2r0lix75ky" path="res://scenes/screens/rank_items/choice.tscn" id="3_2rv4d"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_vdhxh"]
-font = ExtResource("2_x5vjr")
-font_size = 32
+[sub_resource type="LabelSettings" id="LabelSettings_x5vjr"]
+font = ExtResource("2_2rv4d")
+font_size = 40
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_egofa"]
-font = ExtResource("2_x5vjr")
+font = ExtResource("2_2rv4d")
 font_size = 32
 font_color = Color(0, 0, 0, 1)
 
-[node name="RankItems" type="Control" node_paths=PackedStringArray("choice_a", "choice_b")]
+[node name="RankItems" type="Control" node_paths=PackedStringArray("start_btn", "choices_menu", "choice_a", "choice_b")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,8 +23,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bnefp")
-choice_a = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ChoiceA")
-choice_b = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ChoiceB")
+start_btn = NodePath("MarginContainer/VBoxContainer/StartBtn")
+choices_menu = NodePath("MarginContainer/VBoxContainer/ChoicesMenu")
+choice_a = NodePath("MarginContainer/VBoxContainer/ChoicesMenu/ChoiceA")
+choice_b = NodePath("MarginContainer/VBoxContainer/ChoicesMenu/ChoiceB")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -47,32 +50,66 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="Prompt" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Which do you prefer?"
-label_settings = SubResource("LabelSettings_vdhxh")
+theme_override_constants/separation = 10
+
+[node name="LeftOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="BackBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions"]
+custom_minimum_size = Vector2(80, 48)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_x5vjr")
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="TitleLbl" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Rank Items"
+label_settings = SubResource("LabelSettings_x5vjr")
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 360)
+[node name="RightOptions" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="StartBtn" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_2rv4d")
+theme_override_font_sizes/font_size = 28
+text = "Start"
+
+[node name="ChoicesMenu" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="ChoiceA" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_2rv4d")]
+[node name="ChoiceA" parent="MarginContainer/VBoxContainer/ChoicesMenu" instance=ExtResource("3_2rv4d")]
 layout_mode = 2
 
-[node name="Or" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OrLbl" type="Label" parent="MarginContainer/VBoxContainer/ChoicesMenu"]
 layout_mode = 2
 text = "Or"
 label_settings = SubResource("LabelSettings_egofa")
 horizontal_alignment = 1
 
-[node name="ChoiceB" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_2rv4d")]
+[node name="ChoiceB" parent="MarginContainer/VBoxContainer/ChoicesMenu" instance=ExtResource("3_2rv4d")]
 layout_mode = 2
 
-[connection signal="chosen" from="MarginContainer/VBoxContainer/HBoxContainer/ChoiceA" to="." method="_on_choice_chosen"]
-[connection signal="chosen" from="MarginContainer/VBoxContainer/HBoxContainer/ChoiceB" to="." method="_on_choice_chosen"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/LeftOptions/BackBtn" to="." method="_on_back_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ChoicesMenu/ChoiceA" to="." method="_on_choice_a_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ChoicesMenu/ChoiceB" to="." method="_on_choice_b_pressed"]
