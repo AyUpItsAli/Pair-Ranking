@@ -9,13 +9,12 @@ var search_request: HTTPRequest
 signal search_completed(data: Dictionary)
 
 func _ready() -> void:
-	var config := ConfigFile.new()
-	var error: Error = config.load("res://spotify.cfg")
-	if error != OK:
-		push_error("Error loading Spotify config: %s" % error)
+	var spotify: JSON = ResourceLoader.load("res://spotify_config.tres")
+	if not spotify:
+		push_error("Error loading Spotify config")
 		return
-	client_id = config.get_value("API", "client_id")
-	client_secret = config.get_value("API", "client_secret")
+	client_id = spotify.data.get("client_id")
+	client_secret = spotify.data.get("client_secret")
 	refresh_token()
 
 func refresh_token() -> void:

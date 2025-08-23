@@ -1,6 +1,7 @@
 class_name Ranking extends Resource
 
 const FOLDER = "user://rankings"
+const IMPORT_FILE = "user://ranking_import.tres"
 const EXTENSION = "tres"
 
 @export var id: String
@@ -37,6 +38,21 @@ static func get_rankings() -> Array[Ranking]:
 			return a.name < b.name
 	)
 	return rankings
+
+static func import_rankings(rankings: Array[PackedByteArray]) -> void:
+	for buffer: PackedByteArray in rankings:
+		# Godot doesn't support loading resources directly from a byte buffer
+		# So store the buffer to a temporary file and load it afterwards
+		var file = FileAccess.open(IMPORT_FILE, FileAccess.WRITE)
+		file.store_buffer(buffer)
+		file.close()
+		# Load the ranking resource from the temporary file
+		var ranking: Ranking = ResourceLoader.load(IMPORT_FILE, "", ResourceLoader.CACHE_MODE_IGNORE)
+		# Clear the ranking id, so if a ranking with the same id already exists
+		# the imported ranking won't overwrite it, and will instead be given a new id
+		ranking.id = ""
+		# Save the imported ranking to the rankings folder
+		ranking.save()
 
 static func create_empty_ranking(ranking_name: String = "Untitled Ranking") -> Ranking:
 	var ranking := Ranking.new()

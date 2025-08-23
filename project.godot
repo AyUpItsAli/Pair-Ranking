@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://globals/global.gd"
+JavaScript="*res://globals/java_script.gd"
 Http="*res://globals/http.gd"
 Spotify="*res://globals/spotify.gd"
 ScreenManager="*res://globals/screen_manager.gd"
