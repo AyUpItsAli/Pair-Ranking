@@ -22,9 +22,8 @@ static func from_url(icon_url: String) -> Icon:
 	return icon
 
 func get_texture() -> Texture2D:
-	if texture:
-		return texture
-	texture = await load_texture()
+	if not texture:
+		texture = await load_texture()
 	return texture
 
 func load_texture() -> Texture2D:
