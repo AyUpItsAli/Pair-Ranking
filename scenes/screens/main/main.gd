@@ -25,28 +25,7 @@ func _on_empty_ranking_btn_pressed() -> void:
 	ScreenManager.go_to(ScreenManager.Screen.EDIT_RANKING)
 
 func _on_import_ranking_btn_pressed() -> void:
-	var uploads: Array[Upload] = await JavaScript.upload_files(Ranking.EXTENSION)
-	if uploads.is_empty():
-		return
-	var import_path: String = "user://%s%s" % [Ranking.IMPORT_NAME, Ranking.EXTENSION]
-	for upload: Upload in uploads:
-		# Godot doesn't support loading resources directly from a byte buffer (that I'm aware of)
-		# so we store the buffer to a temporary file and load it afterwards
-		var file := FileAccess.open(import_path, FileAccess.WRITE)
-		file.store_buffer(upload.buffer)
-		file.close()
-		# Load the ranking resource from the temporary file
-		var ranking: Ranking = ResourceLoader.load(import_path, "", ResourceLoader.CACHE_MODE_IGNORE)
-		if not ranking:
-			push_error("Failed to import ranking: \"%s\"" % upload.name)
-			continue
-		# Clear the ranking id before saving
-		# This means the imported ranking won't overwrite anything
-		ranking.id = ""
-		ranking.save()
-	# Delete the temporary file after importing
-	if FileAccess.file_exists(import_path):
-		DirAccess.remove_absolute(import_path)
+	await Ranking.import_rankings()
 	update_ranking_entires()
 
 func update_ranking_entires() -> void:

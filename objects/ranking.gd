@@ -44,6 +44,30 @@ static func get_rankings() -> Array[Ranking]:
 	)
 	return rankings
 
+static func import_rankings() -> void:
+	var uploads: Array[Upload] = await JavaScript.upload_files(EXTENSION)
+	if uploads.is_empty():
+		return
+	var import_path: String = "user://%s%s" % [IMPORT_NAME, EXTENSION]
+	for upload: Upload in uploads:
+		# Godot doesn't support loading resources directly from a byte buffer (that I'm aware of)
+		# so we store the buffer to a temporary file and load it afterwards
+		var file := FileAccess.open(import_path, FileAccess.WRITE)
+		file.store_buffer(upload.buffer)
+		file.close()
+		# Load the ranking resource from the temporary file
+		var ranking: Ranking = ResourceLoader.load(import_path, "", ResourceLoader.CACHE_MODE_IGNORE)
+		if not ranking:
+			push_error("Failed to import ranking: \"%s\"" % upload.name)
+			continue
+		# Clear the ranking id before saving
+		# This means the imported ranking won't overwrite anything
+		ranking.id = ""
+		ranking.save()
+	# Delete the temporary file after importing
+	if FileAccess.file_exists(import_path):
+		DirAccess.remove_absolute(import_path)
+
 static func create_empty_ranking(ranking_name: String = "Untitled Ranking") -> Ranking:
 	var ranking := Ranking.new()
 	ranking.name = ranking_name
@@ -67,13 +91,13 @@ func delete() -> void:
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
 
-func get_buffer() -> PackedByteArray:
+func download() -> void:
 	if not FileAccess.file_exists(path):
-		return []
+		return
 	var file := FileAccess.open(path, FileAccess.READ)
 	var buffer: PackedByteArray = file.get_buffer(file.get_length())
 	file.close()
-	return buffer
+	JavaScriptBridge.download_buffer(buffer, path.get_file())
 
 func add_item(item: Item) -> void:
 	if item.id.is_empty():
