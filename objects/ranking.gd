@@ -1,7 +1,7 @@
 class_name Ranking extends Resource
 
 const FOLDER = "user://rankings"
-const EXTENSION = ".tres"
+const EXTENSION = ".res"
 const IMPORT_NAME = "ranking_import"
 
 @export var id: String:
