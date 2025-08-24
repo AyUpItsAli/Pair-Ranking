@@ -34,5 +34,8 @@ func _on_rank_btn_pressed() -> void:
 	ScreenManager.go_to(ScreenManager.Screen.RANK_ITEMS)
 
 func _on_download_btn_pressed() -> void:
-	# TODO: Download ranking file using Javascript bridge
-	pass
+	JavaScriptBridge.download_buffer(
+		Global.ranking.get_buffer(),
+		Global.ranking.path.get_file(),
+		"application/x-godot-resource"
+	)

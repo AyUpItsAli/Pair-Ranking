@@ -4,12 +4,16 @@ const FOLDER = "user://rankings"
 const IMPORT_FILE = "user://ranking_import.tres"
 const EXTENSION = "tres"
 
-@export var id: String
+@export var id: String:
+	set(new_id):
+		id = new_id
+		path = get_path_from_id(id)
 @export var name: String
 @export var icon: Icon:
 	set(new_icon):
 		icon = new_icon
 		icons_updated.emit()
+@export var path: String
 @export var items: Dictionary[String, Item]
 @export var icons: Array[Icon]
 
@@ -27,10 +31,10 @@ static func get_rankings() -> Array[Ranking]:
 	verify_directory()
 	var rankings: Array[Ranking]
 	for file in DirAccess.open(FOLDER).get_files():
-		var path: String = get_path_from_id(file.get_basename())
-		var ranking: Ranking = ResourceLoader.load(path)
+		var file_path: String = get_path_from_id(file.get_basename())
+		var ranking: Ranking = ResourceLoader.load(file_path)
 		if not ranking:
-			push_error("Failed to load ranking \"%s\"" % path)
+			push_error("Failed to load ranking: \"%s\"" % file_path)
 			continue
 		rankings.append(ranking)
 	rankings.sort_custom(
@@ -43,7 +47,7 @@ static func import_rankings(rankings: Array[PackedByteArray]) -> void:
 	for buffer: PackedByteArray in rankings:
 		# Godot doesn't support loading resources directly from a byte buffer
 		# So store the buffer to a temporary file and load it afterwards
-		var file = FileAccess.open(IMPORT_FILE, FileAccess.WRITE)
+		var file := FileAccess.open(IMPORT_FILE, FileAccess.WRITE)
 		file.store_buffer(buffer)
 		file.close()
 		# Load the ranking resource from the temporary file
@@ -70,14 +74,20 @@ func save() -> void:
 		existing_ids.append(file.get_basename())
 	id = Global.string_to_id_unique(name, existing_ids)
 	# Save ranking
-	var path: String = get_path_from_id(id)
 	var result: Error = ResourceSaver.save(self, path)
 	assert(result == OK)
 
 func delete() -> void:
-	var path: String = get_path_from_id(id)
 	if FileAccess.file_exists(path):
 		DirAccess.remove_absolute(path)
+
+func get_buffer() -> PackedByteArray:
+	if not FileAccess.file_exists(path):
+		return []
+	var file := FileAccess.open(path, FileAccess.READ)
+	var buffer: PackedByteArray = file.get_buffer(file.get_length())
+	file.close()
+	return buffer
 
 func add_item(item: Item) -> void:
 	if item.id.is_empty():
