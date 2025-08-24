@@ -20,6 +20,7 @@ func _on_icon_rect_pressed() -> void:
 		"image/jpeg":
 			image.load_jpg_from_buffer(upload.buffer)
 	if image.is_empty():
+		push_error("Failed to load image: \"%s\"" % upload.name)
 		return
 	icon = Icon.from_image(image)
 	icon_selected.emit(icon)

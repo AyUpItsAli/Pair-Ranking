@@ -1,8 +1,8 @@
 class_name Ranking extends Resource
 
 const FOLDER = "user://rankings"
-const IMPORT_FILE = "user://ranking_import.tres"
-const EXTENSION = "tres"
+const EXTENSION = ".tres"
+const IMPORT_NAME = "ranking_import"
 
 @export var id: String:
 	set(new_id):
@@ -25,16 +25,17 @@ static func verify_directory() -> void:
 		DirAccess.make_dir_recursive_absolute(FOLDER)
 
 static func get_path_from_id(ranking_id: String) -> String:
-	return "%s/%s.%s" % [FOLDER, ranking_id, EXTENSION]
+	return "%s/%s%s" % [FOLDER, ranking_id, EXTENSION]
 
 static func get_rankings() -> Array[Ranking]:
 	verify_directory()
 	var rankings: Array[Ranking]
-	for file in DirAccess.open(FOLDER).get_files():
-		var file_path: String = get_path_from_id(file.get_basename())
-		var ranking: Ranking = ResourceLoader.load(file_path)
+	for file_name: String in DirAccess.open(FOLDER).get_files():
+		var ranking_id: String = file_name.get_basename()
+		var ranking_path: String = get_path_from_id(ranking_id)
+		var ranking: Ranking = ResourceLoader.load(ranking_path)
 		if not ranking:
-			push_error("Failed to load ranking: \"%s\"" % file_path)
+			push_error("Failed to load ranking: \"%s\"" % ranking_id)
 			continue
 		rankings.append(ranking)
 	rankings.sort_custom(

@@ -42,6 +42,7 @@ func _on_file_input_change(_args: Array) -> void:
 	for i in range(file_input.files.length):
 		var file: JavaScriptObject = file_input.files[i]
 		var upload := Upload.new()
+		upload.name = file.name
 		upload.type = file.type
 		file_reader.readAsArrayBuffer(file)
 		upload.buffer = await file_loaded
