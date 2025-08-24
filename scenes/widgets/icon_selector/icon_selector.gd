@@ -19,7 +19,7 @@ func _on_icon_rect_pressed() -> void:
 			image.load_png_from_buffer(upload.buffer)
 		"image/jpeg":
 			image.load_jpg_from_buffer(upload.buffer)
-		_:
-			return
+	if image.is_empty():
+		return
 	icon = Icon.from_image(image)
 	icon_selected.emit(icon)
