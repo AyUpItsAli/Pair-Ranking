@@ -1,6 +1,5 @@
 class_name Icon extends Resource
 
-const MAX_SIZE = 300
 const EMPTY_TEXTURE = preload("res://assets/images/empty_icon.png")
 
 @export var image: Image
@@ -9,9 +8,6 @@ const EMPTY_TEXTURE = preload("res://assets/images/empty_icon.png")
 var texture: Texture2D
 
 static func from_image(icon_image: Image) -> Icon:
-	icon_image.resize(MAX_SIZE, MAX_SIZE, Image.INTERPOLATE_LANCZOS)
-	# TODO: Image compression not working in web build
-	#icon_image.compress(Image.COMPRESS_ETC2)
 	var icon := Icon.new()
 	icon.image = icon_image
 	return icon
