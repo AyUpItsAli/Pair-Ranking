@@ -10,7 +10,8 @@ var texture: Texture2D
 
 static func from_image(icon_image: Image) -> Icon:
 	icon_image.resize(MAX_SIZE, MAX_SIZE, Image.INTERPOLATE_LANCZOS)
-	icon_image.compress(Image.COMPRESS_ETC2)
+	# TODO: Image compression not working in web build
+	#icon_image.compress(Image.COMPRESS_ETC2)
 	var icon := Icon.new()
 	icon.image = icon_image
 	return icon

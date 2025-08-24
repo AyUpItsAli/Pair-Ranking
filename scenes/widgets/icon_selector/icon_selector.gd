@@ -1,7 +1,6 @@
 class_name IconSelector extends PanelContainer
 
 @export var icon_rect: TextureButton
-@export var icon_dialog: FileDialog
 
 var icon: Icon:
 	set(new_icon):
@@ -10,11 +9,17 @@ var icon: Icon:
 
 signal icon_selected(icon: Icon)
 
-# TODO: Replace file dialog with Javascript bridge
-
 func _on_icon_rect_pressed() -> void:
-	icon_dialog.show()
-
-func _on_icon_dialog_file_selected(path: String) -> void:
-	icon = Icon.from_image(Image.load_from_file(path))
+	var upload: Upload = await JavaScript.upload_file("image/png,image/jpeg")
+	if not upload:
+		return
+	var image := Image.new()
+	match upload.type:
+		"image/png":
+			image.load_png_from_buffer(upload.buffer)
+		"image/jpeg":
+			image.load_jpg_from_buffer(upload.buffer)
+		_:
+			return
+	icon = Icon.from_image(image)
 	icon_selected.emit(icon)

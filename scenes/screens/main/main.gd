@@ -25,10 +25,23 @@ func _on_empty_ranking_btn_pressed() -> void:
 	ScreenManager.go_to(ScreenManager.Screen.EDIT_RANKING)
 
 func _on_import_ranking_btn_pressed() -> void:
-	var rankings: Array[PackedByteArray] = await JavaScript.get_files(
-		".tres,.res,application/x-godot-resource", true
-	)
-	Ranking.import_rankings(rankings)
+	# TODO: File upload error handling
+	var uploads: Array[Upload] = await JavaScript.upload_files(".tres,.res")
+	if uploads.is_empty():
+		return
+	for upload: Upload in uploads:
+		# Godot doesn't support loading resources directly from a byte buffer (that I'm aware of)
+		# so we store the buffer to a temporary file and load it afterwards
+		var file := FileAccess.open(Ranking.IMPORT_FILE, FileAccess.WRITE)
+		file.store_buffer(upload.buffer)
+		file.close()
+		# Load the ranking resource from the temporary file
+		var ranking: Ranking = ResourceLoader.load(Ranking.IMPORT_FILE, "", ResourceLoader.CACHE_MODE_IGNORE)
+		# Clear the ranking id, so if a ranking with the same id already exists
+		# the imported ranking won't overwrite it, and will instead be given a new id
+		ranking.id = ""
+		# Save the imported ranking to the rankings folder
+		ranking.save()
 	update_ranking_entires()
 
 func update_ranking_entires() -> void:
