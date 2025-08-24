@@ -47,6 +47,9 @@ func _on_file_input_change(_args: Array) -> void:
 		file_reader.readAsArrayBuffer(file)
 		upload.buffer = await file_loaded
 		uploads.append(upload)
+	# Clear the input value after uploading files
+	# Ensures the event gets triggered again if the user chooses the same file
+	file_input.value = ""
 	files_uploaded.emit(uploads)
 
 func _on_file_reader_load(_args: Array) -> void:
